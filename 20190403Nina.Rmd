@@ -1,0 +1,201 @@
+---
+title: "Untitled"
+author: "Nina"
+date: "2019年4月9日"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+x3 <- c("小明","小花")
+y3 <- c("小明","小華")
+```
+```{r}
+x3==y3
+x3!=y3
+!(x3==y3)
+```
+!:negation 反向
+```{r}
+x5 <- c("台北市","新北市","高雄市")
+y5 <- c("台北市","新北市")
+
+x5 %in% y5
+```
+子集合%in%母集合
+```{r}
+library(readr)
+exData2 <- read_csv("https://raw.githubusercontent.com/tpemartin/github-data/master/exData2.csv")
+currency <- exData2$"幣別"
+```
+
+```{r}
+head(currency)
+```
+head():顯示前六筆資料
+
+#factor 類別資料->幾種->使用levels()
+```{r}
+class(currency)
+
+```
+更正為factor
+```{r}
+currency<-as.factor(currency)
+class(currency)
+```
+```{r}
+levels(currency)
+```
+length():數向量內的元素個數
+```{r}
+length(levels(currency))
+```
+```{r}
+sum(currency=="日圓JPY/USD")
+```
+```{r}
+x5 <- c("台北市","新北市","高雄市")
+greatTaipei <- c("台北市","新北市")
+
+x5 %in% greatTaipei
+!(x5 %in% greatTaipei)
+```
+```{r}
+y5 <- c("女","男","女")
+
+y5=="女"
+!(y5=="女")
+```
+```{r}
+(x5 %in% greatTaipei) & (y5=="女")
+```
+&:and
+
+which():向量中第幾筆元素資料為TRUE
+```{r}
+which((x5 %in% greatTaipei) & (y5=="女"))
+```
+```{r}
+(x5 %in% greatTaipei) | (y5=="女")
+```
+｜:or
+```{r}
+xor(x5 %in% greatTaipei, y5=="女")
+```
+xor():只滿足一個
+```{r}
+library(readr)
+exData2 <- read_csv("https://raw.githubusercontent.com/tpemartin/github-data/master/exData2.csv")
+date <- as.character(exData2$"期間")
+currency <- exData2$"幣別"
+exchangeRate <- exData2$"匯率"
+```
+請把date的class存成date class
+```{r}
+class(date)
+library(lubridate)
+date<-ymd(date)
+```
+#記得先使用library引入lubridate
+1980-08-01之後的資料有多少筆
+```{r}
+isafter19800801<-
+date>=ymd("1980-08-01")
+```
+#remember""
+```{r}
+class(isafter19800801)
+sum(isafter19800801)
+```
+幣別為“歐元USD/EUR”的資料有多少筆
+```{r}
+IsEURO<-(currency=="歐元USD/EUR")
+sum(IsEURO)
+```
+exchangeRate有多少筆NA
+```{r}
+isexchangerateNA<-
+is.na(exchangeRate)
+sum(isexchangerateNA)
+```
+排除NA後，幣別為“歐元USD/EUR”的資料有多少筆
+
+grade （科目成績）, courseType（課程為必/選或通識）,major（學系），studentID（學號）物件，這些物件每一筆資料（即每個元素）是一位學生在一個科目的成績
+```{r}
+isnotNA<-
+!(is.na(exchangeRate))
+isEURO<-(currency=="歐元USD/EUR")
+sum(isnotNA&isEURO)
+```
+```{r}
+library(readr)
+transcriptDataFinal <- read_csv("https://raw.githubusercontent.com/tpemartin/github-data/master/transcriptDataFinal.csv")
+courseType <- transcriptDataFinal$`必選修類別（必∕選∕通）`
+major <- transcriptDataFinal$"學系"
+studentID <- transcriptDataFinal$"學號"
+grade <- transcriptDataFinal$"學期成績"
+```
+有多少筆資料是來自經濟學系
+```{r}
+sum(major=="經濟學系")
+```
+請問學號“5bdS6977b”同學修了多少課
+```{r}
+class(studentID=="5bdS6977b")
+sum(studentID=="5bdS6977b")
+```
+請問學號“5bdS6977b”有多少科成績及格
+```{r}
+sum(grade>=60&studentID=="5bdS6977b")
+```
+有多少筆資料來自經濟學系學生且為選修課
+```{r}
+class(courseType)
+head(courseType)
+sum(major=="經濟學系"&courseType=="3")
+```
+在經濟學系學生且必修課程中，成經不及格佔多少比例
+```{r}
+x<-sum(major=="經濟學系"&courseType=="1")
+y<-sum(major=="經濟學系"&courseType=="1"&grade<60)
+y/x
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
