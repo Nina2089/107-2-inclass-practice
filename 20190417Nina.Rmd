@@ -100,7 +100,12 @@ str_replace_all(
     )
   ) -> commitCheckStatement
 commitCheck <- content(GET(commitCheckStatement))
+time<-commitCheck[[4]][["commit"]][["committer"]][["date"]]
+library(lubridate)
+TWtime <- ymd_hms(time, tz="Asia/Taipei")
+TWtime
 ```
+
 ```{r}
 library(readr)
 filmVotingData <- read_csv("https://raw.githubusercontent.com/tpemartin/github-data/master/podcastcompetition3.csv")
