@@ -1,0 +1,102 @@
+---
+title: "Untitled"
+author: "Nina"
+date: "2019年5月29日"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(lubridate)
+now2<- function(){
+  currentDateTime <- Sys.time()
+  hh<-hour(currentDateTime)
+  mm<-minute(currentDateTime)
+  cat("現在是",hh,"點",mm,"分")
+}
+now2()
+```
+```{r}
+browseURL("https://www.ntpu.edu.tw")
+```
+請寫一個textbookURL函數，執行textbookURL()會自動開啟課程網頁。
+```{r}
+textbookURL <- function(){
+  browseURL("https://bookdown.org/tpemartin/ntpu-programming-for-data-science/function-and-conditional-execution.html#defaults")
+}
+
+textbookURL()
+```
+想要輸出GPA及該名學生成績單子樣本subSample
+```{r}
+library(readr)
+transcriptDataFinal <- read_csv("https://raw.githubusercontent.com/tpemartin/github-data/master/transcriptDataFinal.csv")
+studentID <-"92aS67fee" 
+transcriptDataFinal$學號==studentID -> logiChosenStudent
+
+gpa_fun2 <- function(studentID){
+  transcriptDataFinal$學號==studentID -> logiChosenStudent
+  
+  subSample <- transcriptDataFinal[logiChosenStudent,]
+  
+  sum(subSample$學期成績*subSample$學分數)/
+    sum(subSample$學分數) -> GPA
+  return(
+    list(
+      平均成績=GPA,
+      成績單=subSample
+      )
+  )
+}
+gpa_fun2("92aS67fee") -> outputValue
+outputValue$平均成績
+outputValue$成績單
+```
+創造一個demand_supply_fun(P,a,b,c,d)，它會輸出一個list包含三個元素：供給量，需求量，超額供給量
+```{r}
+demand_supply_fun <- function(P,a,b,c,d){
+  QS <- a + b*P
+  QD <- c - d*P
+  return(
+    list(
+      供給量 = QS,
+      需求量 = QD,
+      超額供給量 = QS - QD
+    )
+  )
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
